@@ -4,6 +4,7 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace AddressBookSQL
 {
@@ -235,6 +236,55 @@ namespace AddressBookSQL
             {
                 sqlConnection.Close();
             }
+        }
+
+
+
+        //Add Multiple Contact To the Address
+
+        public bool AddMultipleAddress(List<AddressModel> addressModels)
+        {
+            try
+            {
+                addressModels.ForEach(addressData =>
+                {
+                    Console.WriteLine("Address being added: " + addressData.FirstName);
+                    AddContact(addressData);
+                    Console.WriteLine("Employee added: " + addressData.LastName);
+                });
+            }
+            catch
+            {
+                return false;
+            }
+            return true;
+        }
+
+
+        //Add Multiple Contact To the Address With Thread
+
+        public bool AddMultipleAddressWithThread(List<AddressModel> addressModels)
+        {
+            try
+            {
+                addressModels.ForEach(addressData =>
+                {
+                    Task thread = new Task(() =>
+                    {
+                        Console.WriteLine("Address being added: " + addressData.FirstName);
+                        AddContact(addressData);
+                        Console.WriteLine("Employee added: " + addressData.LastName);
+                    }
+                    );
+                    thread.Start();
+                }
+                );
+            }
+            catch
+            {
+                return false;
+            }
+            return true;
         }
     }
 }

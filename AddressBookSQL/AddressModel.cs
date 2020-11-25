@@ -18,6 +18,25 @@ namespace AddressBookSQL
         public string Email { get; set; }
         public DateTime DateofJoining { get; set; }
 
+
+        public AddressModel(string firstName, string lastName, string relation_type, string address, string city, string state, string zipcode, string phonenumber, string email, DateTime dateofJoining)
+        {
+            this.FirstName = firstName;
+            this.LastName = lastName;
+            this.Relation_Type =relation_type;
+            this.Address = address;
+            this.City = city;
+            this.State = state;
+            this.Zipcode = zipcode;
+            this.PhoneNumber = phonenumber;
+            this.Email = email;
+            this.DateofJoining = dateofJoining;
+        }
+
+        public AddressModel()
+        {
+        }
+
         public void Display()
         {
             Console.Write(Id + " " + FirstName + " " + LastName + " " + Relation_Type + " " + Address
