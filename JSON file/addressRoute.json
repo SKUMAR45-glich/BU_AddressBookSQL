@@ -1,0 +1,7 @@
+{
+   "/AddressBook/list":"/AddressBook",
+   "/AddressBook/get/:pin":"/AddressBook/:pin",
+   "/AddressBook/create":"/AddressBook",
+   "/AddressBook/update/:pin":"/AddressBook/:pin",
+   "/AddressBook/delete/:pin":"/AddressBook/:pin"
+}
