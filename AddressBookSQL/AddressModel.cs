@@ -16,11 +16,12 @@ namespace AddressBookSQL
         public string Zipcode { get; set; }
         public string PhoneNumber { get; set; }
         public string Email { get; set; }
+        public DateTime DateofJoining { get; set; }
 
         public void Display()
         {
             Console.Write(Id + " " + FirstName + " " + LastName + " " + Relation_Type + " " + Address
-                + " " + City + " " + State + " " + Zipcode + " " + PhoneNumber + " " + Email + "\n");
+                + " " + City + " " + State + " " + Zipcode + " " + PhoneNumber + " " + Email + " "+DateofJoining+"\n");
         }
     }
 }
