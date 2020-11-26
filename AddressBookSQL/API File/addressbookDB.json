@@ -1,0 +1,94 @@
+{
+  "address": [
+    {
+      "id": 3,
+      "name": "shiv",
+      "Salary": "35000"
+    },
+    {
+      "id": 4,
+      "name": "Daas",
+      "Salary": "15000"
+    },
+    {
+      "id": 5,
+      "name": "lavanya",
+      "Salary": "8000"
+    },
+    {
+      "id": 6,
+      "name": "Meera",
+      "Salary": "10000"
+    },
+    {
+      "id": 7,
+      "name": "Luffy",
+      "Salary": "50000"
+    },
+    {
+      "id": 9,
+      "name": "xyz",
+      "Salary": "52000"
+    },
+    {
+      "name": "Max",
+      "Salary": 10000,
+      "id": 11
+    },
+    {
+      "name": "Bruce Wayne",
+      "Salary": "12000",
+      "id": 12
+    },
+    {
+      "name": "Virat",
+      "salary": "10000",
+      "id": 13
+    },
+    {
+      "name": "Mahi",
+      "salary": "15000",
+      "id": 14
+    },
+    {
+      "name": "Virat",
+      "salary": "10000",
+      "id": 15
+    },
+    {
+      "name": "Mahi",
+      "salary": "20000",
+      "id": 16
+    },
+    {
+      "name": "Virat",
+      "salary": "10000",
+      "id": 17
+    },
+    {
+      "name": "Mahi",
+      "salary": "15000",
+      "id": 18
+    },
+    {
+      "name": "Virat",
+      "salary": "10000",
+      "id": 19
+    },
+    {
+      "name": "Mahi",
+      "salary": "15000",
+      "id": 20
+    },
+    {
+      "name": "Virat",
+      "salary": "10000",
+      "id": 21
+    },
+    {
+      "name": "Mahi",
+      "salary": "15000",
+      "id": 22
+    }
+  ]
+}

@@ -6,8 +6,8 @@ namespace TestAddressBookSQL
 {
     public class AddressBook
     {
-        public int pin { get; set; }
+        public int id { get; set; }
         public string name { get; set; }
-        public string city { get; set; }
+        public string salary { get; set; }
     }
 }
