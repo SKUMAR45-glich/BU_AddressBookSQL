@@ -1,0 +1,19 @@
+{
+  "AddressBook": [
+    {
+      "pin": 1,
+      "name": "VK",
+      "city": "Delhi"
+    },
+    {
+      "pin": 2,
+      "name": "MSD",
+      "city": "Ranchi"
+    },
+    {
+      "pin": 3,
+      "name": "Rohit",
+      "city": "Mumbai"
+    }
+  ]
+}
