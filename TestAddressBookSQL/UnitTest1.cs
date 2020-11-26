@@ -145,5 +145,18 @@ namespace TestAddressBookSQL
             Assert.AreEqual(dataResponse.salary, "20000");
         }
 
+
+        //Deletion Contact in AddressBook
+
+        [TestMethod]
+        public void DeleteDatainAddressBookList()
+        {
+            //Arrange
+            RestRequest request = new RestRequest("/delete/10", Method.DELETE);
+            //Act
+            IRestResponse response = client.Execute(request);
+            //Assert
+            Assert.AreEqual(response.StatusCode, HttpStatusCode.OK);
+        }
     }
 }
