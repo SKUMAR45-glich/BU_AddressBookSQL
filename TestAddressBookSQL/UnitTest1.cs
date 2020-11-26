@@ -82,5 +82,39 @@ namespace TestAddressBookSQL
         }
 
 
+
+        //Add Multiple Contact in AddressBook
+
+        [TestMethod]
+        public void OnAddingMultipleNewDatatoAddressBookList()
+        {
+            //Arrange
+            List<AddressBook> addressBookList = new List<AddressBook>();
+
+            addressBookList.Add(new AddressBook { name = "Virat", salary = "10000" });                         //For Multiple Adding Data to AddressBookList
+            addressBookList.Add(new AddressBook { name = "Mahi", salary = "15000" });
+
+            foreach (var item in addressBookList)
+            {
+                //Act
+                RestRequest request = new RestRequest("/create", Method.POST);                  //For Adding Data to AddressBookList
+                JObject jObject = new JObject();
+                jObject.Add("name", item.name);
+                jObject.Add("salary", item.salary);
+
+                request.AddParameter("application/json", jObject, ParameterType.RequestBody);          //Validation of RestRequest
+
+
+                IRestResponse response = client.Execute(request);                                   //Executing the response
+
+
+                //Assert
+                Assert.AreEqual(response.StatusCode, HttpStatusCode.Created);                               //Checking Validation
+                AddressBook dataResponse = JsonConvert.DeserializeObject<AddressBook>(response.Content);          //Deserializing Object
+
+                Assert.AreEqual(item.name, dataResponse.name);
+                Assert.AreEqual(item.salary, dataResponse.salary);
+            }
+        }
     }
 }
