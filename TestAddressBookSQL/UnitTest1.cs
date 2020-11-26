@@ -116,5 +116,34 @@ namespace TestAddressBookSQL
                 Assert.AreEqual(item.salary, dataResponse.salary);
             }
         }
+
+
+        //Update contact details in AddressBook
+
+        [TestMethod]
+        public void UpdatingDatainAddressBookList()
+        {
+            //Arrange
+            RestRequest request = new RestRequest("/update/8", Method.PUT);
+            JObject jobject = new JObject();
+
+            jobject.Add("name", "Mahi");
+            jobject.Add("salary", "20000");
+
+            request.AddParameter("application/json", jobject, ParameterType.RequestBody);
+
+            //Act
+            IRestResponse response = client.Execute(request);
+
+
+            //Assert
+            Assert.AreEqual(response.StatusCode, HttpStatusCode.OK);
+
+            AddressBook dataResponse = JsonConvert.DeserializeObject<AddressBook>(response.Content);
+
+            Assert.AreEqual(dataResponse.name, "Mahi");
+            Assert.AreEqual(dataResponse.salary, "20000");
+        }
+
     }
 }
