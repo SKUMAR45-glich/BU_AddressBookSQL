@@ -21,15 +21,15 @@ namespace AddressBookSQL
             AddressBookRepo.UpdateContact(contact);                                         //Update Function the contact
             */
 
-            /*
-            var startDate = Convert.ToDateTime("15/09/2020");
-            var endDate = Convert.ToDateTime("30/09/2020");
+            
+            var startDate = Convert.ToDateTime("2020/09/18");
+            var endDate = Convert.ToDateTime("2020/09/30");
             AddressBookRepo.RetrieveDetailsInDateRange(startDate, endDate);
-            */
+            
 
 
             //Addition
-
+            /*
             AddressModel addressModel = new AddressModel                        
             {
                 FirstName = "Virat",
@@ -45,7 +45,7 @@ namespace AddressBookSQL
             };
 
             AddressBookRepo.AddContact(addressModel);                                   //To Add Values
-
+            */
         }
     }
 }

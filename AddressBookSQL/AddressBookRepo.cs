@@ -12,8 +12,11 @@ namespace AddressBookSQL
     {
         public static string connectionString;
         public static SqlConnection sqlConnection;
-
         public static List<AddressModel> contacts = new List<AddressModel>();                                           //List to AddressModel                           
+        
+        
+        //Set Connection
+
         public static void SetConnection()
         {
             connectionString = @"Data Source=DESKTOP-SC0MR56\SQLEXPRESS;Initial Catalog=AddressBookServiceDataBase;Integrated Security=True";           //Path for connection
@@ -50,7 +53,7 @@ namespace AddressBookSQL
                             addressModel.PhoneNumber = dr["PhoneNumber"].ToString();
                             addressModel.Email = dr["Email"].ToString();
                             addressModel.Relation_Type = dr["Relation_Type"].ToString();
-                            //addressModel.DateofJoining = Convert.ToDateTime(dr["DOJ"]);
+                            addressModel.DateofJoining = Convert.ToDateTime(dr["DateofJoining"]);
 
                             contacts.Add(addressModel);                                               //Add the values to the List
                         }
@@ -68,6 +71,17 @@ namespace AddressBookSQL
                 sqlConnection.Close();                                                                     //Close the Connection
             }
         }
+
+
+        //Display the Contact
+        public static void DisplayContacts()
+        {
+            foreach (var contact in contacts)
+            {
+                contact.Display();
+            }
+        }
+
 
 
         //Updation
@@ -141,14 +155,14 @@ namespace AddressBookSQL
 
         public static void RetrieveDetailsInDateRange(DateTime startDate, DateTime endDate)
         {
-
+            Dictionary<int, AddressModel> contactinDate = new Dictionary<int, AddressModel>();
             try
             {
                 SetConnection();
 
                 using (sqlConnection)
                 {
-                    var query = @"select * from AddressBookService DateofJoining > @startDate AND DateofJoining < @endDate";
+                    var query = @"select * from AddressBookService where DateofJoining between @startDate and @endDate";
                     var sqlCommand = new SqlCommand(query, sqlConnection);
                     sqlCommand.Parameters.AddWithValue("startDate", startDate);
                     sqlCommand.Parameters.AddWithValue("endDate", endDate);
@@ -162,17 +176,20 @@ namespace AddressBookSQL
                             contactModel.Id = Convert.ToInt32(dr["Id"]);
                             contactModel.FirstName = dr["FirstName"].ToString();
                             contactModel.LastName = dr["LastName"].ToString();
-                            contactModel.Relation_Type = dr["RelationType"].ToString();
+                            contactModel.Relation_Type = dr["Relation_Type"].ToString();
                             contactModel.Address = dr["Address"].ToString();
                             contactModel.City = dr["City"].ToString();
                             contactModel.State = dr["State"].ToString();
                             contactModel.Zipcode = dr["ZipCode"].ToString();
                             contactModel.PhoneNumber = dr["PhoneNumber"].ToString();
                             contactModel.Email = dr["Email"].ToString();
-                            contactModel.DateofJoining = Convert.ToDateTime(dr["DOJ"]);
+                            contactModel.DateofJoining = Convert.ToDateTime(dr["DateofJoining"]);
 
-                            contacts.Add(contactModel);
-                            DisplayContacts();
+                            contactinDate.Add(contactModel.Id,contactModel);
+                        }
+                        foreach (KeyValuePair<int, AddressModel> item in contactinDate)
+                        {
+                            Console.WriteLine($"{item.Key} {item.Value.FirstName} {item.Value.City} {item.Value.Email}");
                         }
                     }
 
@@ -188,15 +205,6 @@ namespace AddressBookSQL
                 sqlConnection.Close();
             }
         }
-
-        public static void DisplayContacts()
-        {
-            foreach (var contact in contacts)
-            {
-                contact.Display();
-            }
-        }
-
 
 
         //Addition
