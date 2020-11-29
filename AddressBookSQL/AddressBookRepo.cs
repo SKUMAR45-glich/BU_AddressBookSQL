@@ -71,7 +71,7 @@ namespace AddressBookSQL
 
         //Updation
 
-        public static void UpdateContact(AddressModel updateAddressModel)
+        public static bool UpdateContact(AddressModel updateAddressModel)
         {
             try
             {
@@ -121,11 +121,15 @@ namespace AddressBookSQL
                     else
                         contacts.Add(contactModel);                                    //No Updation
                     contactModel.Display();
+
+                    return true;
                 }
+
+                return false;
             }
             catch (Exception ex)
             {
-
+                return false;
                 throw new Exception(ex.Message);
             }
             finally
@@ -138,16 +142,16 @@ namespace AddressBookSQL
 
         //Retrieve Data in Date Range
 
-        public static void RetrieveDetailsInDateRange(DateTime startDate, DateTime endDate)
+        public static bool RetrieveDetailsInDateRange(DateTime startDate, DateTime endDate)
         {
-
+            Dictionary<int, AddressModel> contactinDate = new Dictionary<int, AddressModel>();
             try
             {
                 SetConnection();
 
                 using (sqlConnection)
                 {
-                    var query = @"select * from AddressBookService DateofJoining > @startDate AND DateofJoining < @endDate";
+                    var query = @"select * from AddressBookService where DateofJoining between @startDate and @endDate";
                     var sqlCommand = new SqlCommand(query, sqlConnection);
                     sqlCommand.Parameters.AddWithValue("startDate", startDate);
                     sqlCommand.Parameters.AddWithValue("endDate", endDate);
@@ -161,25 +165,30 @@ namespace AddressBookSQL
                             contactModel.Id = Convert.ToInt32(dr["Id"]);
                             contactModel.FirstName = dr["FirstName"].ToString();
                             contactModel.LastName = dr["LastName"].ToString();
-                            contactModel.Relation_Type = dr["RelationType"].ToString();
+                            contactModel.Relation_Type = dr["Relation_Type"].ToString();
                             contactModel.Address = dr["Address"].ToString();
                             contactModel.City = dr["City"].ToString();
                             contactModel.State = dr["State"].ToString();
                             contactModel.Zipcode = dr["ZipCode"].ToString();
                             contactModel.PhoneNumber = dr["PhoneNumber"].ToString();
                             contactModel.Email = dr["Email"].ToString();
-                            contactModel.DateofJoining = Convert.ToDateTime(dr["DOJ"]);
+                            contactModel.DateofJoining = Convert.ToDateTime(dr["DateofJoining"]);
 
-                            contacts.Add(contactModel);
-                            DisplayContacts();
+                            contactinDate.Add(contactModel.Id, contactModel);
                         }
-                    }
+                        foreach (KeyValuePair<int, AddressModel> item in contactinDate)
+                        {
+                            Console.WriteLine($"{item.Key} {item.Value.FirstName} {item.Value.City} {item.Value.Email}");
+                        }
 
+                        return true;
+                    }
+                    return false;
                 }
             }
             catch (Exception ex)
             {
-
+                return false;
                 throw new Exception(ex.Message);
             }
             finally
@@ -200,7 +209,7 @@ namespace AddressBookSQL
 
         //Addition
 
-        public static void AddContact(AddressModel addAddressModel)
+        public static bool AddContact(AddressModel addAddressModel)
         {
             try
             {
@@ -225,10 +234,12 @@ namespace AddressBookSQL
                 sqlConnection.Open();
 
                 var dr = sqlCommand.ExecuteNonQuery();
+
+                return true;
             }
             catch (Exception ex)
             {
-
+                return false;
                 throw new Exception(ex.Message);
             }
             finally
