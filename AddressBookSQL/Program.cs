@@ -13,6 +13,8 @@ namespace AddressBookSQL
             AddressBookRepo.DisplayContacts();                                               //Display function to show the Contacts
 
             Console.WriteLine();
+            
+            
             //To Update the AddressBook
 
             var contact = AddressBookRepo.contacts[1];                                      //Select the contact to be changed                                            
