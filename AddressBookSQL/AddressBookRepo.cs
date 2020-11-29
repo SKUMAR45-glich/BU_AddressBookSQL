@@ -120,7 +120,6 @@ namespace AddressBookSQL
                     }
                     else
                         contacts.Add(contactModel);                                    //No Updation
-                    contactModel.Display();
 
                     Console.WriteLine("Values Updated");
                 }
