@@ -121,6 +121,8 @@ namespace AddressBookSQL
                     else
                         contacts.Add(contactModel);                                    //No Updation
                     contactModel.Display();
+
+                    Console.WriteLine("Values Updated");
                 }
             }
             catch (Exception ex)
@@ -140,14 +142,14 @@ namespace AddressBookSQL
 
         public static void RetrieveDetailsInDateRange(DateTime startDate, DateTime endDate)
         {
-
+            Dictionary<int, AddressModel> contactinDate = new Dictionary<int, AddressModel>();
             try
             {
                 SetConnection();
 
                 using (sqlConnection)
                 {
-                    var query = @"select * from AddressBookService DateofJoining > @startDate AND DateofJoining < @endDate";
+                    var query = @"select * from AddressBookService where DateofJoining between @startDate and @endDate";
                     var sqlCommand = new SqlCommand(query, sqlConnection);
                     sqlCommand.Parameters.AddWithValue("startDate", startDate);
                     sqlCommand.Parameters.AddWithValue("endDate", endDate);
@@ -161,17 +163,20 @@ namespace AddressBookSQL
                             contactModel.Id = Convert.ToInt32(dr["Id"]);
                             contactModel.FirstName = dr["FirstName"].ToString();
                             contactModel.LastName = dr["LastName"].ToString();
-                            contactModel.Relation_Type = dr["RelationType"].ToString();
+                            contactModel.Relation_Type = dr["Relation_Type"].ToString();
                             contactModel.Address = dr["Address"].ToString();
                             contactModel.City = dr["City"].ToString();
                             contactModel.State = dr["State"].ToString();
                             contactModel.Zipcode = dr["ZipCode"].ToString();
                             contactModel.PhoneNumber = dr["PhoneNumber"].ToString();
                             contactModel.Email = dr["Email"].ToString();
-                            contactModel.DateofJoining = Convert.ToDateTime(dr["DOJ"]);
+                            contactModel.DateofJoining = Convert.ToDateTime(dr["DateofJoining"]);
 
-                            contacts.Add(contactModel);
-                            DisplayContacts();
+                            contactinDate.Add(contactModel.Id, contactModel);
+                        }
+                        foreach (KeyValuePair<int, AddressModel> item in contactinDate)
+                        {
+                            Console.WriteLine($"{item.Key} {item.Value.FirstName} {item.Value.City} {item.Value.Email}");
                         }
                     }
 
@@ -225,6 +230,8 @@ namespace AddressBookSQL
                 sqlConnection.Open();
 
                 var dr = sqlCommand.ExecuteNonQuery();
+
+                Console.WriteLine("Data Added");
             }
             catch (Exception ex)
             {
