@@ -267,18 +267,21 @@ namespace AddressBookSQL
         {
             try
             {
-                addressModels.ForEach(addressData =>
+
+                Task th = new Task(() =>
                 {
-                    Task thread = new Task(() =>
+
+
+                    addressModels.ForEach(addressData =>
                     {
-                        Console.WriteLine("Address being added: " + addressData.FirstName);
-                        AddContact(addressData);
-                        Console.WriteLine("Employee added: " + addressData.LastName);
-                    }
-                    );
-                    thread.Start();
-                }
-                );
+                        var thread = new Task(() => AddContact(addressData));
+                        thread.Start();
+                        thread.Wait();
+                    });
+                });
+
+                th.Start();
+                th.Wait();
             }
             catch
             {
