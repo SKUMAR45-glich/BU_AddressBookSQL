@@ -248,9 +248,9 @@ namespace AddressBookSQL
             {
                 addressModels.ForEach(addressData =>
                 {
-                    Console.WriteLine("Address being added: " + addressData.FirstName);
+                    Console.WriteLine("First name: " + addressData.FirstName);
                     AddContact(addressData);
-                    Console.WriteLine("Employee added: " + addressData.LastName);
+                    Console.WriteLine("Last name: " + addressData.LastName);
                 });
             }
             catch
@@ -270,11 +270,13 @@ namespace AddressBookSQL
 
                 Task th = new Task(() =>
                 {
-
-
                     addressModels.ForEach(addressData =>
                     {
-                        var thread = new Task(() => AddContact(addressData));
+                        Console.WriteLine("Addition of data using thread");
+                        
+                        Console.WriteLine("First name: " + addressData.FirstName);
+                        var thread = new Task(() => AddContact(addressData));                            //Threading Addition
+                        Console.WriteLine("Last name: " + addressData.LastName);
                         thread.Start();
                         thread.Wait();
                     });
